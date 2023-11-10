@@ -1,8 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import HomePage from './HomePage.jsx'; 
+import Game from './Game.jsx';
+import GameRules from './GameRules.jsx';
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 
 const router = createBrowserRouter([
   {
@@ -10,11 +14,11 @@ const router = createBrowserRouter([
     element: <HomePage />
   },
   {
-    path: '/',
+    path: '/game',
     element: <Game />
   },
   {
-    path: '/',
+    path: '/gameRules',
     element: <GameRules />
   } 
   ])
@@ -22,5 +26,6 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    {/* <App /> */}
   </React.StrictMode>,
 )

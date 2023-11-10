@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client' 
+import { Link } from 'react-router-dom';
 
-export default function HomePage() 
+function HomePage() 
 {
     return (
       <div>
@@ -9,5 +10,6 @@ export default function HomePage()
         <p>Select a difficulty level:</p>
       </div>
     );
-  }
-  
+}
+
+export default HomePage
