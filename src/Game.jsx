@@ -2,8 +2,8 @@ function Game()
 {
     return (
       <div>
-        <h1>Welcome to Wordle Game</h1>
-        <p>Select a difficulty level:</p>
+        <h1>Test</h1>
+        <p>Hard</p>
       </div>
     );
 }

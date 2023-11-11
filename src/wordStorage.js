@@ -1,7 +1,7 @@
 const words = 
 {
-    easy: [About, Apple, Bread, Cable, Lunch, Money, Queen, Roman, Share, Sharp, Under],
-    hard: [Azure, Craic, Ducat, Enoki, Loath, Rural, Slake, Spate, Tares, Quash]
-}
+    easy: ['about', 'apple', 'bread', 'cable', 'lunch', 'money', 'queen', 'roman', 'share', 'sharp', 'under'],
+    hard: ['azure', 'craic', 'ducat', 'enoki', 'loath', 'rural', 'slake', 'spate', 'tares', 'quash']
+};
 
 export default words
