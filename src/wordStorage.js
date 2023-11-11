@@ -1,7 +1,7 @@
 const words = 
 {
-    easy: ['about', 'apple', 'bread', 'cable', 'lunch', 'money', 'queen', 'roman', 'share', 'sharp', 'under'],
-    hard: ['azure', 'craic', 'ducat', 'enoki', 'loath', 'rural', 'slake', 'spate', 'tares', 'quash']
+    easy: ['action', 'battle', 'circle', 'dealer', 'eating', 'talent', 'source', 'urgent', 'origin', 'moment', 'jersey', 'global'],
+    hard: ['absurd', 'briery', 'caucus', 'frosty', 'horrid', 'knotty', 'mulish', 'robust', 'savage', 'thorny', 'unjust', 'wildly']
 };
 
 export default words
