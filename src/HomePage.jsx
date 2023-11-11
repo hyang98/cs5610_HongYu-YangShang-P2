@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client' 
+import { Link } from 'react-router-dom';
 
 function HomePage() 
 {
@@ -7,6 +7,9 @@ function HomePage()
       <div>
         <h1>Welcome to Wordle Game</h1>
         <p>Select a difficulty level:</p>
+        <Link to="/game/normal">Normal</Link>
+        <Link to="/game/hard">Hard</Link>
+        <Link to="/gameRules">Game Rules</Link>
       </div>
     );
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import HomePage from './HomePage.jsx'; 
 import Game from './Game.jsx';
 import GameRules from './GameRules.jsx';
@@ -14,8 +13,12 @@ const router = createBrowserRouter([
     element: <HomePage />
   },
   {
-    path: '/game',
-    element: <Game />
+    path: '/game/normal',
+    element: <Game difficulty="normal" />
+  },
+  {
+    path: '/game/hard',
+    element: <Game difficulty="hard" />
   },
   {
     path: '/gameRules',
