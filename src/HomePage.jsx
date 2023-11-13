@@ -5,14 +5,14 @@ import './HomePage.css'
 function HomePage() 
 {
     return (
-      <div className="homeContainer">
-        <h1 className="homeTitle">Wordle Game NEU Edition</h1>
-        <p className="homeDescription">Select a difficulty level:</p>
-      <div className="difficultyLinksContainer">  
-        <Link to="/game/normal" className="difficultyLink">Normal</Link>
-        <Link to="/game/hard" className="difficultyLink">Hard</Link>
+      <div class="homeContainer">
+        <h1 class="homeTitle">Wordle Game NEU Edition</h1>
+        <p class="homeDescription">Select a difficulty level:</p>
+      <div class="difficultyLinksContainer">  
+        <Link to="/game/normal" class="difficultyLink">Normal</Link>
+        <Link to="/game/hard" class="difficultyLink">Hard</Link>
       </div>
-      <Link to="/gameRules" className="rulesLink">Game Rules</Link>
+      <Link to="/gameRules" class="rulesLink">Game Rules</Link>
     </div>
   );
 }
