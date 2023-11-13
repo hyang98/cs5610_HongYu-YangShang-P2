@@ -1,5 +1,6 @@
 import React from 'react'
 import './GameRules.css'
+import { Link } from 'react-router-dom'
 
 export default function GameRules() 
 {
@@ -18,6 +19,7 @@ export default function GameRules()
           <li>Complete the game by guessing the word or reset to try again.</li>
         </ul>
       </div>
+      <Link to="/">Home</Link>
     </div>
   );
 }
