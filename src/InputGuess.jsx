@@ -1,8 +1,14 @@
-export default function InputGuess(props) {
 
-    return (
-        <div>
-            <span>{props.input}</span>
-        </div>
-    )
+import React from 'react';
+
+function InputGuess({ value, onInput, placeholder }) {
+  return (
+    <input
+      onInput={onInput}
+      value={value}
+      placeholder={placeholder}
+    />
+  );
 }
+
+export default InputGuess;

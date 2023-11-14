@@ -2,6 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import './Game.css';
 import InputGuess from "./InputGuess";
+import GameMessage from "./GameMessage";
 
 
 const words = {
@@ -51,6 +52,8 @@ function Game({ difficulty }) {
 
   function submitInput() {
     setMessage('');
+    const containsNumbers = /\d/.test(input);
+
     if (input.trim() !== '' && attempts > 0) {
       const inputLength = input.trim().length;
       let minLength, maxLength;
@@ -69,6 +72,8 @@ function Game({ difficulty }) {
 
       if (inputLength < minLength || inputLength > maxLength) {
         setMessage('Word length is not within the acceptable range.');
+      } else if (containsNumbers) {
+        setMessage('Please enter valid letters.');
       } else if (input.toLowerCase() === secretWord.toLowerCase()) {
         setGameDone(true);
         setMessage('Congratulations! You guessed the correct word!');
@@ -114,7 +119,7 @@ function Game({ difficulty }) {
       key={index}
       dangerouslySetInnerHTML={{ __html: inputItem.input }}
     ></div>
-  ));
+  ))
 
 
   return (
@@ -125,35 +130,29 @@ function Game({ difficulty }) {
           <div className="container">
             <h1>Wordle</h1>
           </div>
-          {gameDone ? (
-            <div>
-              <div className="containerMessage">
-                <button onClick={() => resetGame(difficulty)}>Reset Game</button>
-                <h3>{message}</h3>
-              </div>
-            </div>
-          ) : (
-            <div className="containerMessage">
-              <h2>You have {attempts} attempts remaining !</h2>
-              <h3>{message}</h3>
-            </div>
-          )}
+          <GameMessage
+            gameDone={gameDone}
+            message={message}
+            resetGame={resetGame}
+            difficulty={difficulty}
+            attempts={attempts}
+          />
           <div className="container">
             <p>Please make the Guess:</p>
           </div>
           <div className="containerButton">
-            <input
-              onInput={(event) => inputGuess(event)}
-              value={input}
-              placeholder={`Please input ${secretWord.length} letters`}
-            ></input>
+            <InputGuess
+                onInput={(event) => inputGuess(event)}
+                value={input}
+                placeholder={`Please input ${secretWord.length} letters`}
+            />
             <div className="buttonLink">
               <button onClick={() => submitInput()} disabled={gameDone}>Submit</button>
             </div>
           </div>
         </div>
       </div>
-      <div className="previousResult">{inputHistoryComponents}</div>;
+      <div className="previousResult">{inputHistoryComponents}</div>
     </div>
   );
 }

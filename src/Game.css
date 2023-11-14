@@ -1,11 +1,10 @@
 .homeContainer {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 1200px;
+    margin: 5vh auto;
     padding: 20px;
     background-color: #f7f7f7;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-left: 35vw;
-}
+  }
 
 .container 
 {
@@ -58,14 +57,14 @@ button:hover
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
-.previousResult 
-{
+.previousResult {
     font-size: 50pt;
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    margin-left: 35vw;
-}
+    align-items: center;
+    /* margin: 20vh auto; */
+  }
+  
 
 h3 {
     color: red;
