@@ -148,7 +148,7 @@ function Game({ difficulty }) {
               placeholder={`Please input ${secretWord.length} letters`}
             ></input>
             <div className="buttonLink">
-              <button onClick={() => submitInput()}>Submit</button>
+              <button onClick={() => submitInput()} disabled={gameDone}>Submit</button>
             </div>
           </div>
         </div>
