@@ -1,16 +1,22 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { useParams } from 'react-router-dom';
 import './Game.css';
 import InputGuess from "./InputGuess";
 
-function Game() {
-  const [attempts, setAttempts] = useState(6);
+function Game({ difficulty }) {
   const [input, setInput] = useState('');
   const [gameDone, setGameDone] = useState(false);
   const [inputHistory, setInputHistory] = useState([]);
+  const [attempts, setAttempts] = useState(6); // Set the default number of attempts
 
-  function inputGuess(event) {
-    setInput(event.target.value);
-  }
+  // You can set the number of attempts based on the difficulty level
+  useEffect(() => {
+    if (difficulty === 'hard') {
+      setAttempts(5); // or any other value for the hard difficulty
+    } else {
+      setAttempts(6); // or any other value for the normal difficulty
+    }
+  }, [difficulty]);
 
   function submitInput() {
     if (input.trim() !== '' && attempts > 0) {
@@ -27,7 +33,10 @@ function Game() {
       }
     }
   }
-
+  
+  function inputGuess(event) {
+    setInput(event.target.value);
+  }
   const inputHistoryComponents = inputHistory.map((inputItem, index) => (
     <InputGuess key={index} input={inputItem.input} />
   ));
