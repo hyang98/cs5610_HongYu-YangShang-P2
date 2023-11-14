@@ -1,5 +1,5 @@
-import { useContext, useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { Link } from 'react-router-dom'
 import './Game.css';
 import InputGuess from "./InputGuess";
 import GameMessage from "./GameMessage";
@@ -143,14 +143,23 @@ function Game({ difficulty }) {
             attempts={attempts}
           />
           <div className="container">
-            <p>Please make the Guess:</p>
+            <p>Enter your Guess:</p>
           </div>
           <div className="containerButton">
+          <div>
+            <Link to="/">Back</Link>
+          </div>
+          {gameDone ? (
+            <div className="secretWordOutput">
+            <p> Wordle Word was:{" "}
+              <span className="secretWordStyle">{secretWord}</span>
+            </p>
+            </div>) : (
             <InputGuess
                 onInput={(event) => inputGuess(event)}
                 value={input}
                 placeholder={`Please input ${secretWord.length} letters`}
-            />
+            />)}
             <div className="buttonLink">
               <button onClick={() => submitInput()} disabled={gameDone}>Submit</button>
             </div>

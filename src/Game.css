@@ -38,6 +38,12 @@
     background-color: #3498db;
     color: white;
 }
+.secretWordStyle 
+{
+    color: goldenrod;
+    font-weight: bold;
+}
+
 /* button {
     padding: 12px 24px;
     font-size: 16px;
