@@ -1,0 +1,7 @@
+.previousResult {
+    font-size: 50pt;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin: 20vh auto; */
+  }

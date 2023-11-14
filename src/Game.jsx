@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import './Game.css';
 import InputGuess from "./InputGuess";
 import GameMessage from "./GameMessage";
+import InputHistory from "./InputHistory";
 
 
 const words = {
@@ -18,6 +19,7 @@ function Game({ difficulty }) {
   const [secretWord, setSecretWord] = useState(generateSecretWord(difficulty));
   const [message, setMessage] = useState('');
   const [colorCodedInput, setColorCodedInput] = useState('');
+  const [showSecret, setShowSecret] = useState(false);
 
   useEffect(() => {
     setSecretWord(generateSecretWord(difficulty));
@@ -54,7 +56,7 @@ function Game({ difficulty }) {
     setMessage('');
     const containsNumbers = /\d/.test(input);
 
-    if (input.trim() !== '' && attempts > 0) {
+    if (input.trim() !== '' && attempts > 1) {
       const inputLength = input.trim().length;
       let minLength, maxLength;
 
@@ -86,14 +88,17 @@ function Game({ difficulty }) {
         setInput('');
         setAttempts((prevAttempts) => prevAttempts - 1);
 
-        if (attempts - 1 === 0) {
-          setGameDone(true);
-          setMessage('Sorry, no attempts remaining.');
-        }
+        // if (attempts - 1 === 0) {
+        //   setGameDone(true);
+        //   setMessage('Sorry, no attempts remaining.');
+        //   setShowSecret(true);
+        // }
       }
     } else {
-      if(attempts === 0) {
+      if(attempts === 1) {
+        setGameDone(true);
         setMessage('No attempts remaining...');
+        setShowSecret(true)
       } else {
         setMessage('Input is empty!');
       }
@@ -124,7 +129,7 @@ function Game({ difficulty }) {
 
   return (
     <div>
-      {secretWord}
+      {/* {secretWord} */}
       <div className="container">
         <div className="homeContainer">
           <div className="container">
@@ -152,7 +157,7 @@ function Game({ difficulty }) {
           </div>
         </div>
       </div>
-      <div className="previousResult">{inputHistoryComponents}</div>
+      <InputHistory inputHistory={inputHistory} />
     </div>
   );
 }
