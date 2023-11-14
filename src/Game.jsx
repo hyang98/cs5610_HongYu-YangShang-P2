@@ -16,10 +16,11 @@ function Game({ difficulty }) {
   const [attempts, setAttempts] = useState(6);
   const [secretWord, setSecretWord] = useState(generateSecretWord(difficulty));
   const [message, setMessage] = useState('');
+  const [colorCodedInput, setColorCodedInput] = useState('');
 
   useEffect(() => {
     setSecretWord(generateSecretWord(difficulty));
-    setAttempts(difficulty === 'hard' ? 5 :  6);
+    setAttempts(difficulty === 'hard' ? 5 : 6);
     setInput('');
     setInputHistory([]);
     setGameDone(false);
@@ -31,7 +32,25 @@ function Game({ difficulty }) {
     return wordList[randomIndex];
   }
 
+  function compareWords(userInput, secret) {
+    let result = '';
+    for (let i = 0; i < secret.length; i++) {
+      const userChar = userInput[i];
+      const secretChar = secret[i];
+  
+      if (userChar === secretChar) {
+        result += `<span style="background-color: green">${userChar}</span>`;
+      } else if (secret.includes(userChar)) {
+        result += `<span style="background-color: yellow">${userChar}</span>`;
+      } else {
+        result += `<span style="background-color: gray">${userChar}</span>`;
+      }
+    }
+    return result;
+  }
+
   function submitInput() {
+    setMessage('');
     if (input.trim() !== '' && attempts > 0) {
       const inputLength = input.trim().length;
       let minLength, maxLength;
@@ -44,17 +63,20 @@ function Game({ difficulty }) {
         maxLength = 6;
       }
 
-      if (inputLength < minLength || inputLength > maxLength) 
-      {
+      console.log("minlength: " + minLength);
+      console.log("maxLength: " + maxLength);
+      console.log("inputlength: " + inputLength);
+
+      if (inputLength < minLength || inputLength > maxLength) {
         setMessage('Word length is not within the acceptable range.');
-      } else if (input.toLowerCase() === secretWord.toLowerCase()) 
-      {
+      } else if (input.toLowerCase() === secretWord.toLowerCase()) {
         setGameDone(true);
         setMessage('Congratulations! You guessed the correct word!');
-      } 
-      else 
-      {
-        const newInputHistory = [{ input: input }, ...inputHistory];
+      } else {
+        const coloredInput = compareWords(input.toLowerCase(), secretWord.toLowerCase());
+        setColorCodedInput(coloredInput);
+
+        const newInputHistory = [{ input: coloredInput }, ...inputHistory];
         setInputHistory(newInputHistory);
         setInput('');
         setAttempts((prevAttempts) => prevAttempts - 1);
@@ -64,10 +86,12 @@ function Game({ difficulty }) {
           setMessage('Sorry, no attempts remaining.');
         }
       }
-    } 
-    else 
-    {
-      setMessage('Input is empty or no attempts remaining.');
+    } else {
+      if(attempts === 0) {
+        setMessage('No attempts remaining...');
+      } else {
+        setMessage('Input is empty!');
+      }
     }
   }
 
@@ -78,34 +102,51 @@ function Game({ difficulty }) {
     setInputHistory([]);
     setGameDone(false);
     setMessage('');
+    setColorCodedInput('');
   }
 
   function inputGuess(event) {
     setInput(event.target.value);
   }
+
   const inputHistoryComponents = inputHistory.map((inputItem, index) => (
-    <InputGuess key={index} input={inputItem.input} />
+    <div
+      key={index}
+      dangerouslySetInnerHTML={{ __html: inputItem.input }}
+    ></div>
   ));
+
 
   return (
     <div>
       {secretWord}
-      <div className = "container">
+      <div className="container">
         <div className="homeContainer">
-          <div className = "container"><h1>Wordle</h1></div>
+          <div className="container">
+            <h1>Wordle</h1>
+          </div>
           {gameDone ? (
             <div>
-            <h2>{message}</h2>
-            <button onClick={() => resetGame(difficulty)}>Reset Game</button>
+              <div className="containerMessage">
+                <button onClick={() => resetGame(difficulty)}>Reset Game</button>
+                <h3>{message}</h3>
+              </div>
             </div>
           ) : (
-            <h2>You have {attempts} attempts remaining !</h2>
+            <div className="containerMessage">
+              <h2>You have {attempts} attempts remaining !</h2>
+              <h3>{message}</h3>
+            </div>
           )}
-          <div className = "container">
+          <div className="container">
             <p>Please make the Guess:</p>
           </div>
-          <div className = "containerButton">
-            <input onInput={(event) => inputGuess(event)} value = {input}></input>
+          <div className="containerButton">
+            <input
+              onInput={(event) => inputGuess(event)}
+              value={input}
+              placeholder={`Please input ${secretWord.length} letters`}
+            ></input>
             <div className="buttonLink">
               <button onClick={() => submitInput()}>Submit</button>
             </div>
@@ -117,4 +158,4 @@ function Game({ difficulty }) {
   );
 }
 
-export default Game
+export default Game;
