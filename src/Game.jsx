@@ -3,20 +3,32 @@ import { useParams } from 'react-router-dom';
 import './Game.css';
 import InputGuess from "./InputGuess";
 
+
+const words = {
+  normal: ['action', 'battle', 'circle', 'dealer', 'eating', 'talent', 'source', 'urgent', 'origin', 'moment', 'jersey', 'global'],
+  hard: ['ancient', 'balance', 'caption', 'defence', 'foreign', 'illness', 'journey', 'kingdom', 'outlook', 'segment', 'therapy'],
+};
+
 function Game({ difficulty }) {
   const [input, setInput] = useState('');
   const [gameDone, setGameDone] = useState(false);
   const [inputHistory, setInputHistory] = useState([]);
-  const [attempts, setAttempts] = useState(6); // Set the default number of attempts
+  const [attempts, setAttempts] = useState(6);
+  const [secretWord, setSecretWord] = useState(generateSecretWord(difficulty));
 
-  // You can set the number of attempts based on the difficulty level
   useEffect(() => {
-    if (difficulty === 'hard') {
-      setAttempts(5); // or any other value for the hard difficulty
-    } else {
-      setAttempts(6); // or any other value for the normal difficulty
-    }
+    setSecretWord(generateSecretWord(difficulty));
+    setAttempts(difficulty === 'hard' ? 5 : 10);
+    setInput('');
+    setInputHistory([]);
+    setGameDone(false);
   }, [difficulty]);
+
+  function generateSecretWord(difficulty) {
+    const wordList = words[difficulty] || [];
+    const randomIndex = Math.floor(Math.random() * wordList.length);
+    return wordList[randomIndex];
+  }
 
   function submitInput() {
     if (input.trim() !== '' && attempts > 0) {
@@ -27,11 +39,19 @@ function Game({ difficulty }) {
       setInputHistory(newInputHistory);
       setInput('');
       setAttempts((prevAttempts) => prevAttempts - 1);
-  
+
+
+      if(input === secretWord) {
+        setGameDone(!gameDone)
+      }
       if (attempts - 1 === 0) {
-        setGameDone(true);
+        setGameDone(!gameDone);
       }
     }
+  }
+  let isDone = ''
+  if(gameDone) {
+
   }
   
   function inputGuess(event) {
@@ -43,6 +63,7 @@ function Game({ difficulty }) {
 
   return (
     <div>
+      {secretWord}
       <div className = "container">
         <div className="homeContainer">
           <div className = "container"><h1>Wordle</h1></div>
